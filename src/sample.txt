@@ -1,0 +1,100 @@
+{
+    "kind": "books#volume",
+    "id": "QsZIDgAAQBAJ",
+    "etag": "2zzkoubLKIE",
+    "selfLink": "https://www.googleapis.com/books/v1/volumes/QsZIDgAAQBAJ",
+    "volumeInfo": {
+        "title": "Still Me",
+        "subtitle": "Discover the love story that captured 21 million hearts",
+        "authors": [
+            "Jojo Moyes"
+        ],
+        "publisher": "Penguin UK",
+        "publishedDate": "2018-01-25",
+        "description": "THE NO. 1 SUNDAY TIMES BESTSELLER & SHORTLISTED FOR A NATIONAL BOOK AWARD 'A triumph' Heat __________ Lou Clark knows too many things . . . She knows how many miles lie between her new home in New York and her new boyfriend Sam in London. She knows her employer is a good man and she knows his wife is keeping a secret from him. What Lou doesn't know is she's about to meet someone who's going to turn her whole life upside down. Because Josh will remind her so much of a man she used to know that it'll hurt. Lou won't know what to do next, but she knows that whatever she chooses is going to change everything. Follow Lou Clark's adventures in this spellbinding conclusion to the love story that captured 21 million hearts. __________ 'A triumph' Heat 'A joyful story with a pitch-perfect ending' Daily Express 'Still one of our fave authors and still a brilliant read!' Look 'Immensely enjoyable' Sunday Times 'Louisa is a dream character, and this is going to be huge - deservedly so' Daily Mail 'Captivating' OK! 'A funny, thoughtful and uplifting conclusion to the trilogy' Sunday Express",
+        "industryIdentifiers": [
+            {
+                "type": "ISBN_13",
+                "identifier": "9781405924214"
+            },
+            {
+                "type": "ISBN_10",
+                "identifier": "1405924217"
+            }
+        ],
+        "readingModes": {
+            "text": true,
+            "image": false
+        },
+        "pageCount": 480,
+        "printType": "BOOK",
+        "categories": [
+            "Fiction"
+        ],
+        "averageRating": 4,
+        "ratingsCount": 24,
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": true,
+        "contentVersion": "1.7.7.0.preview.2",
+        "panelizationSummary": {
+            "containsEpubBubbles": false,
+            "containsImageBubbles": false
+        },
+        "imageLinks": {
+            "smallThumbnail": "http://books.google.com/books/content?id=QsZIDgAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+            "thumbnail": "http://books.google.com/books/content?id=QsZIDgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        },
+        "language": "en",
+        "previewLink": "http://books.google.co.uk/books?id=QsZIDgAAQBAJ&printsec=frontcover&dq=fiction&hl=&cd=1&source=gbs_api",
+        "infoLink": "https://play.google.com/store/books/details?id=QsZIDgAAQBAJ&source=gbs_api",
+        "canonicalVolumeLink": "https://market.android.com/details?id=book-QsZIDgAAQBAJ"
+    },
+    "saleInfo": {
+        "country": "GB",
+        "saleability": "FOR_SALE",
+        "isEbook": true,
+        "listPrice": {
+            "amount": 4.99,
+            "currencyCode": "GBP"
+        },
+        "retailPrice": {
+            "amount": 4.99,
+            "currencyCode": "GBP"
+        },
+        "buyLink": "https://play.google.com/store/books/details?id=QsZIDgAAQBAJ&rdid=book-QsZIDgAAQBAJ&rdot=1&source=gbs_api",
+        "offers": [
+            {
+                "finskyOfferType": 1,
+                "listPrice": {
+                    "amountInMicros": 4990000,
+                    "currencyCode": "GBP"
+                },
+                "retailPrice": {
+                    "amountInMicros": 4990000,
+                    "currencyCode": "GBP"
+                },
+                "giftable": true
+            }
+        ]
+    },
+    "accessInfo": {
+        "country": "GB",
+        "viewability": "PARTIAL",
+        "embeddable": true,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED_FOR_ACCESSIBILITY",
+        "epub": {
+            "isAvailable": true,
+            "acsTokenLink": "http://books.google.co.uk/books/download/Still_Me-sample-epub.acsm?id=QsZIDgAAQBAJ&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+        },
+        "pdf": {
+            "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=QsZIDgAAQBAJ&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "SAMPLE",
+        "quoteSharingAllowed": false
+    },
+    "searchInfo": {
+        "textSnippet": "&#39; Look &#39;Immensely enjoyable&#39; Sunday Times &#39;Louisa is a dream character, and this is going to be huge - deservedly so&#39; Daily Mail &#39;Captivating&#39; OK! &#39;A funny, thoughtful and uplifting conclusion to the trilogy&#39; Sunday Express"
+    }
+}
