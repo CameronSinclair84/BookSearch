@@ -10,19 +10,27 @@ export interface IReduxProps {
   fetchBooks: () => void;
 }
 
-export interface IState {}
+export interface IState {
+  books: any;
+}
 
 class Test extends React.Component<IReactProps & IReduxProps, IState> {
-  public componentWillMount() {
+  public state = { books: [] };
+
+  public componentDidMount() {
     this.props.fetchBooks();
-    // fetch("https://www.googleapis.com/books/v1/volumes?q=nature&maxResults=20")
-    //   .then(res => res.json())
-    //   .then(data => console.log(data.items[0].accessInfo.country))
-    //   .catch(error => console.log(error));
+  }
+
+  public componentDidUpdate(prevProps: IReactProps & IReduxProps) {
+    if (this.props !== prevProps) {
+      this.setState({
+        books: this.props.books
+      });
+    }
   }
 
   public render() {
-    console.log(this.props.books);
+    console.log(this.state.books);
     return <h3>blah</h3>;
   }
 }
