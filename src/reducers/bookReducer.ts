@@ -22,7 +22,7 @@ export const getBooksFailure = (error: Error): IGetBooksFailureAction => ({
 
 export const fetchBooks = () => (dispatch: any) => {
   dispatch(getBooks());
-  fetch("https://www.googleapis.com/books/v1/volumes?q=nature&maxResults=1")
+  fetch("https://www.googleapis.com/books/v1/volumes?q=nature&maxResults=20")
     .then(res => res.json())
     .then(data => dispatch(getBooksSuccess(data)))
     .catch(error => dispatch(getBooksFailure(error)));
