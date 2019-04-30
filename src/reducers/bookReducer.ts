@@ -1,4 +1,4 @@
-//IBook interface
+// IBook interface
 
 export interface IBook {}
 
@@ -28,7 +28,7 @@ export const fetchBooks = () => (dispatch: any) => {
     .catch(error => dispatch(getBooksFailure(error)));
 };
 
-//action interfaces
+// action interfaces
 
 export interface IGetBooksAction {
   type: typeof FETCH_BOOKS;
@@ -42,7 +42,7 @@ export interface IGetBooksFailureAction {
   error: Error;
 }
 
-//combining action creators
+// combining action creators
 
 type IBookActions =
   | IGetBooksAction
