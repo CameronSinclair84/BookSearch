@@ -1,21 +1,18 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 
 class App extends Component {
-  public componentWillMount() {
-    fetch(
-      "https://www.googleapis.com/books/v1/volumes?q=nature&maxResults=20&projection=lite"
-    )
-      .then(res => console.log(res.json()))
-      .catch(error => console.log(error));
-  }
-
   public render() {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+          <img
+            src={
+              "http://books.google.com/books/content?id=mZny5uwvSd8C&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"
+            }
+            className="App-logo"
+            alt="logo"
+          />
           <p>
             Edit <code>src/App.tsx</code> and save to reload.
           </p>

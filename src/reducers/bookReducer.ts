@@ -15,9 +15,18 @@ export const getBooksSuccess = (books: IBook[]): IGetBooksSuccessAction => ({
   type: SUCCESS_FETCH_BOOKS,
   books
 });
-export const getBooksFailure = (): IGetBooksFailureAction => ({
-  type: FAILURE_FETCH_BOOKS
+export const getBooksFailure = (error: Error): IGetBooksFailureAction => ({
+  type: FAILURE_FETCH_BOOKS,
+  error
 });
+
+export const fetchBooks = () => (dispatch: any) => {
+  dispatch(getBooks());
+  fetch("https://www.googleapis.com/books/v1/volumes?q=nature&maxResults=1")
+    .then(res => res.json())
+    .then(data => dispatch(getBooksSuccess(data)))
+    .catch(error => dispatch(getBooksFailure(error)));
+};
 
 //action interfaces
 
@@ -30,6 +39,7 @@ export interface IGetBooksSuccessAction {
 }
 export interface IGetBooksFailureAction {
   type: typeof FAILURE_FETCH_BOOKS;
+  error: Error;
 }
 
 //combining action creators
@@ -41,7 +51,7 @@ type IBookActions =
 
 export interface IBookState {
   books: IBook[];
-  error: null | string;
+  error: null | Error;
   loading: boolean;
 }
 
@@ -57,9 +67,9 @@ const bookReducer = (state = initialState, action: IBookActions) => {
     case FETCH_BOOKS:
       return { ...state, loading: true, error: null };
     case SUCCESS_FETCH_BOOKS:
-      return { ...state, loading: false, error: null, cards: action.books };
+      return { ...state, loading: false, error: null, books: action.books };
     case FAILURE_FETCH_BOOKS:
-      return { ...state, loading: false, error: "FAILED!!" };
+      return { ...state, loading: false, error: action.error };
     default:
       return state;
   }
