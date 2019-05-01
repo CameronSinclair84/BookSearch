@@ -25,7 +25,7 @@ export const fetchBooks = (authorName: string) => (dispatch: any) => {
   fetch(
     "https://www.googleapis.com/books/v1/volumes?q=inauthor:" +
       authorName +
-      "&maxResults=20"
+      "&maxResults=20&key:AIzaSyDhHe5MvQYsUZscr1CGaVqSP_vX9oMmOCE"
   )
     .then(res => res.json())
     .then(data => dispatch(getBooksSuccess(data.items)))
