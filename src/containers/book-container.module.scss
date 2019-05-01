@@ -1,0 +1,49 @@
+.header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  height: 70px;
+  background-color: white;
+  border-bottom: 2px solid black;
+  z-index: 1;
+}
+
+.logo {
+  padding-left: 40px;
+  display: flex;
+  height: 70px;
+  align-items: center;
+}
+
+.dropdowncontainer {
+  font-weight: 800;
+  margin: 20px;
+  margin-left: 40px;
+  width: 200px;
+}
+
+.select {
+  font-weight: 800;
+  width: 300px;
+  margin: 20px;
+}
+
+.form {
+  display: flex;
+}
+
+.bookcontainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  //   display: grid;
+  //   grid-template-columns: 1fr 1fr 1fr;
+  //   grid-gap: 10px;
+  background-color: #626c7c;
+  position: absolute;
+  top: 70px;
+}

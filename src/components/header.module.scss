@@ -1,0 +1,17 @@
+.header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  height: 70px;
+  background-color: white;
+  border-bottom: 2px solid black;
+  z-index: 1;
+}
+
+.dropdowncontainer {
+  margin: 10px;
+}
