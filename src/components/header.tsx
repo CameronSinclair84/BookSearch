@@ -6,7 +6,7 @@ export interface IProps {}
 export interface IState {}
 
 class Header extends React.Component<IProps, IState> {
-  //state = { :  }
+  // state = { :  }
   public render() {
     return (
       <div className={styles.header}>

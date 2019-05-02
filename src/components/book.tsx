@@ -9,29 +9,28 @@ export interface IProps {
 export interface IState {}
 
 class Book extends React.Component<IProps, IState> {
-  //state = { :  }
-
   public render() {
-    let genreType = this.props.book.volumeInfo.categories
+    const genreType = this.props.book.volumeInfo.categories
       ? this.props.book.volumeInfo.categories
       : "None Specified";
-    let bookLength = this.props.book.volumeInfo.pageCount
+    const bookLength = this.props.book.volumeInfo.pageCount
       ? this.props.book.volumeInfo.pageCount + " pages"
       : "Not specified";
-    let datePublished = this.props.book.volumeInfo.publishedDate
+    const datePublished = this.props.book.volumeInfo.publishedDate
       ? this.props.book.volumeInfo.publishedDate
       : "Not specified";
     return (
       <div className={styles.bookinfo}>
         <section className={styles.bookTitle}>
-          {this.props.book.volumeInfo.title}
+          <div className={styles.title}>{this.props.book.volumeInfo.title}</div>
+          <div className={styles.picContainer}>
+            <img
+              className={styles.picture}
+              src={this.props.book.volumeInfo.imageLinks.thumbnail}
+            />
+          </div>
         </section>
-        <br />
-        <img
-          className={styles.picture}
-          src={this.props.book.volumeInfo.imageLinks.thumbnail}
-        />
-        <br />
+
         <section className={styles.description}>
           {this.props.book.volumeInfo.description}
         </section>

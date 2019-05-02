@@ -14,9 +14,10 @@ export interface IReduxProps {
   fetchBooks: (authorName: string) => void;
   books: any[];
 }
+
 export interface IState {
   authorName: string;
-  //filteredBooks: any[];
+  filteredBooks: any[];
 }
 
 interface IGenre {
@@ -40,24 +41,32 @@ class BookContainer extends React.Component<IReactProps & IReduxProps, IState> {
   //   }
 
   public handleAuthorChange = (evt: any) => {
-    this.setState({
-      authorName: evt.label
-    });
     this.props.fetchBooks(evt.label);
+    this.setState({
+      authorName: evt.label,
+      filteredBooks: []
+    });
   };
 
   public handleGenreChange = (evt: any) => {
-    // this.setState({
-    //   authorName: evt.label
-    // });
-    // this.props.fetchBooks(evt.label);
+    this.setState({
+      filteredBooks: this.props.books.filter(eachBook => {
+        if (eachBook.volumeInfo.categories !== undefined) {
+          if (eachBook.volumeInfo.categories.includes(evt.label)) {
+            return true;
+          }
+          return false;
+        }
+        return false;
+      })
+    });
   };
 
   // Build the list of genres for the dropdown box
 
   public buildGenres = (): IGenre[] => {
-    let getAllGenres: string[] = [];
-    let genreArray: IGenre[] = [];
+    const getAllGenres: string[] = [];
+    const finalGenres: IGenre[] = [];
 
     this.props.books.map(element => {
       if (element.volumeInfo.categories) {
@@ -66,18 +75,30 @@ class BookContainer extends React.Component<IReactProps & IReduxProps, IState> {
         }
       }
     });
-    let removeDuplicates = (arg: string[]) =>
+
+    const removeDuplicates = (arg: string[]) =>
       arg.filter((element1, element2) => arg.indexOf(element1) === element2);
-    let removedDuplicateGenres = removeDuplicates(getAllGenres);
+
+    const removedDuplicateGenres = removeDuplicates(getAllGenres);
+
+    finalGenres.push({ label: "ALL", value: 1 });
 
     for (let i = 0; i < removedDuplicateGenres.length; i++) {
-      genreArray.push({ label: removedDuplicateGenres[i], value: i + 1 });
+      finalGenres.push({ label: removedDuplicateGenres[i], value: i + 2 });
     }
-    console.log(genreArray);
-    return genreArray;
+
+    return finalGenres;
   };
 
   public render() {
+    const renderBooks =
+      this.state.filteredBooks.length !== 0
+        ? this.state.filteredBooks.map((eachBook, index) => (
+            <Book key={index} book={eachBook} />
+          ))
+        : this.props.books.map((eachBook, index) => (
+            <Book key={index} book={eachBook} />
+          ));
     return (
       <div>
         <div className={styles.header}>
@@ -104,11 +125,7 @@ class BookContainer extends React.Component<IReactProps & IReduxProps, IState> {
             />
           </div>
         </div>
-        <div className={styles.bookcontainer}>
-          {this.props.books.map((eachBook, index) => (
-            <Book key={index} book={eachBook} />
-          ))}
-        </div>
+        <div className={styles.bookcontainer}>{renderBooks}</div>
       </div>
     );
   }
