@@ -1,6 +1,20 @@
 // IBook interface
 
-export interface IBook {}
+export interface IBook {
+  volumeInfo: {
+    title: string;
+    subtitle: string;
+    authors: string[];
+    publishedDate: string;
+    description: string;
+    pageCount: number;
+    categories: string[];
+    imageLinks: {
+      smallThumbnail: string;
+      thumbnail: string;
+    };
+  };
+}
 
 // action types
 export const FETCH_BOOKS = "FETCH_BOOKS";
@@ -25,7 +39,7 @@ export const fetchBooks = (authorName: string) => (dispatch: any) => {
   fetch(
     "https://www.googleapis.com/books/v1/volumes?q=inauthor:" +
       authorName +
-      "&maxResults=20&key:AIzaSyDhHe5MvQYsUZscr1CGaVqSP_vX9oMmOCE"
+      "&maxResults=40&key:AIzaSyDfPSHeJTtmlX9BUI8mgANTIPI9uB0jbQs"
   )
     .then(res => res.json())
     .then(data => dispatch(getBooksSuccess(data.items)))

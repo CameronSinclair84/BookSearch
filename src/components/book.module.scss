@@ -5,7 +5,7 @@
   border: solid 2px black;
   height: 440px;
   width: 300px;
-  background-color: teal;
+  background-color: rgb(114, 164, 197);
   margin: 20px;
   border-radius: 20px;
 }
@@ -18,6 +18,7 @@
 
 .picture {
   height: 120px;
+  max-width: 120px;
   border: 2px solid black;
 }
 
@@ -39,6 +40,7 @@
   align-items: center;
   justify-content: center;
   align-content: center;
+  overflow: auto;
 }
 
 .description {

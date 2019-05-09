@@ -12,12 +12,13 @@ export interface IReactProps {}
 
 export interface IReduxProps {
   fetchBooks: (authorName: string) => void;
-  books: any[];
+  books: IBook[];
 }
 
 export interface IState {
   authorName: string;
-  filteredBooks: any[];
+  filteredBooks: IBook[];
+  genres: IGenre[];
 }
 
 interface IGenre {
@@ -26,21 +27,29 @@ interface IGenre {
 }
 
 class BookContainer extends React.Component<IReactProps & IReduxProps, IState> {
-  public state = { authorName: "Dan Brown", filteredBooks: this.props.books };
+  public state = {
+    authorName: "Dan Brown",
+    filteredBooks: this.props.books,
+    genres: []
+  };
 
   public componentDidMount = () => {
     this.props.fetchBooks(this.state.authorName);
   };
 
-  //   public componentDidUpdate(prevProps: IReactProps & IReduxProps) {
-  //     if (this.props !== prevProps) {
-  //       this.setState({
-  //         filteredList: this.props.cards.filter(this.filterCards)
-  //       });
-  //     }
-  //   }
+  public componentDidUpdate(prevProps: IReduxProps & IReactProps) {
+    if (!this.props.books) {
+      console.log("No results");
+    } else if (this.props.books !== prevProps.books) {
+      console.log(this.props.books);
+      this.setState({
+        filteredBooks: this.props.books,
+        genres: this.buildGenres()
+      });
+    }
+  }
 
-  public handleAuthorChange = (evt: any) => {
+  public handleAuthorDropdownChange = (evt: any) => {
     this.props.fetchBooks(evt.label);
     this.setState({
       authorName: evt.label,
@@ -48,10 +57,23 @@ class BookContainer extends React.Component<IReactProps & IReduxProps, IState> {
     });
   };
 
+  public handleAuthorChange = (evt: any) => {
+    console.log(evt.target.value);
+    this.setState(
+      {
+        authorName: evt.target.value,
+        filteredBooks: []
+      },
+      () => this.props.fetchBooks(this.state.authorName)
+    );
+  };
+
   public handleGenreChange = (evt: any) => {
     this.setState({
       filteredBooks: this.props.books.filter(eachBook => {
-        if (eachBook.volumeInfo.categories !== undefined) {
+        if (evt.label === "ALL") {
+          return true;
+        } else if (eachBook.volumeInfo.categories !== undefined) {
           if (eachBook.volumeInfo.categories.includes(evt.label)) {
             return true;
           }
@@ -91,16 +113,11 @@ class BookContainer extends React.Component<IReactProps & IReduxProps, IState> {
   };
 
   public render() {
-    const renderBooks =
-      this.state.filteredBooks.length !== 0
-        ? this.state.filteredBooks.map((eachBook, index) => (
-            <Book key={index} book={eachBook} />
-          ))
-        : this.props.books.map((eachBook, index) => (
-            <Book key={index} book={eachBook} />
-          ));
+    const renderBooks = this.state.filteredBooks.map((eachBook, index) => (
+      <Book key={index} book={eachBook} />
+    ));
     return (
-      <div>
+      <React.Fragment>
         <div className={styles.header}>
           <div className={styles.logo}>
             <img src={logo} height="50px" />
@@ -112,21 +129,25 @@ class BookContainer extends React.Component<IReactProps & IReduxProps, IState> {
                 { label: "Jane Austen", value: 2 },
                 { label: "Isaac Asimov", value: 3 }
               ]}
-              onChange={this.handleAuthorChange}
+              onChange={this.handleAuthorDropdownChange}
               placeholder="Select Author..."
             />
           </div>
           <div className={styles.select}>
             <Select
-              options={this.buildGenres()}
+              options={this.state.genres}
               autosize={true}
               placeholder="Select Genre..."
               onChange={this.handleGenreChange}
             />
           </div>
+          <div className={styles.authorinput}>
+            Specify author:
+            <input type="text" onChange={this.handleAuthorChange} />
+          </div>
         </div>
         <div className={styles.bookcontainer}>{renderBooks}</div>
-      </div>
+      </React.Fragment>
     );
   }
 }

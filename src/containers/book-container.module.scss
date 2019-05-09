@@ -32,8 +32,15 @@
   margin: 20px;
 }
 
-.form {
-  display: flex;
+.authorinput {
+  //display: flex;
+  //   border: solid 2px black;
+  font-weight: 800;
+  width: auto;
+  margin: 20px;
+  input {
+    margin-left: 5px;
+  }
 }
 
 .bookcontainer {

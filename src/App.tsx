@@ -15,11 +15,6 @@ class App extends Component {
       <Provider store={store}>
         <div className="App">
           <BookContainer />
-
-          {/* <Header /> */}
-          {/* <header className="App-header">
-            <h2>My Library placeholder</h2>
-          </header> */}
         </div>
       </Provider>
     );

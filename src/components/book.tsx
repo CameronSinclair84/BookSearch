@@ -1,9 +1,10 @@
 import * as React from "react";
 import { IBook } from "../reducers/bookReducer";
 import styles from "./book.module.scss";
+import placeholder from "./placeholder.jpg";
 
 export interface IProps {
-  book: any;
+  book: IBook;
 }
 
 export interface IState {}
@@ -19,15 +20,15 @@ class Book extends React.Component<IProps, IState> {
     const datePublished = this.props.book.volumeInfo.publishedDate
       ? this.props.book.volumeInfo.publishedDate
       : "Not specified";
+    const thumbnail = this.props.book.volumeInfo.imageLinks
+      ? this.props.book.volumeInfo.imageLinks.thumbnail
+      : placeholder;
     return (
       <div className={styles.bookinfo}>
         <section className={styles.bookTitle}>
           <div className={styles.title}>{this.props.book.volumeInfo.title}</div>
           <div className={styles.picContainer}>
-            <img
-              className={styles.picture}
-              src={this.props.book.volumeInfo.imageLinks.thumbnail}
-            />
+            <img className={styles.picture} src={thumbnail} />
           </div>
         </section>
 
