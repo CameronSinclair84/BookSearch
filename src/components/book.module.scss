@@ -213,8 +213,8 @@ Fallback
 }
 
 .picture {
-  height: 120px;
-  max-width: 120px;
+  //height: 120px;
+  width: 260px;
   border: 2px solid black;
 }
 
@@ -241,10 +241,10 @@ Fallback
 
 .description {
   border-top: solid 1px black;
-  border-bottom: solid 1px black;
+  //border-bottom: solid 1px black;
   margin: 0px 0px 20px 0px;
   padding: 0px 10px;
-  height: 150px;
+  height: 200px;
   overflow: auto;
 }
 
