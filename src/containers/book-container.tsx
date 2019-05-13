@@ -78,6 +78,13 @@ class BookContainer extends React.Component<IReactProps & IReduxProps, IState> {
     return findMax;
   };
 
+  public updateMaxPageCount = () => {
+    this.setState({
+      maxPageCount: this.findMaxPageCount()
+    });
+    console.log(this.state.maxPageCount);
+  };
+
   public handleAuthorDropdownChange = (evt: any) => {
     this.setState(
       {
@@ -104,27 +111,32 @@ class BookContainer extends React.Component<IReactProps & IReduxProps, IState> {
   public handleFilter = () => {
     this.setState({
       filteredBooks: this.props.books.filter(eachbook => {
-        const stringToSearch = eachbook.volumeInfo.description
-          ? eachbook.volumeInfo.title.toLowerCase() +
-            eachbook.volumeInfo.description.toLowerCase()
-          : eachbook.volumeInfo.title.toLowerCase();
+        const {
+          description,
+          title,
+          pageCount,
+          categories
+        } = eachbook.volumeInfo;
+        const stringToSearch = description
+          ? title.toLowerCase() + description.toLowerCase()
+          : title.toLowerCase();
 
         if (this.state.selectedGenre === "ALL") {
           if (
-            eachbook.volumeInfo.pageCount &&
-            eachbook.volumeInfo.pageCount <= this.state.pageCount &&
+            pageCount &&
+            pageCount <= this.state.pageCount &&
             (stringToSearch.includes(this.state.keyword) ||
               this.state.keyword === "")
           ) {
             return true;
           }
         } else if (
-          eachbook.volumeInfo.categories !== undefined &&
-          eachbook.volumeInfo.categories.includes(this.state.selectedGenre)
+          categories !== undefined &&
+          categories.includes(this.state.selectedGenre)
         ) {
           if (
-            eachbook.volumeInfo.pageCount &&
-            eachbook.volumeInfo.pageCount <= this.state.pageCount &&
+            pageCount &&
+            pageCount <= this.state.pageCount &&
             (stringToSearch.includes(this.state.keyword) ||
               this.state.keyword === "")
           ) {
@@ -197,6 +209,11 @@ class BookContainer extends React.Component<IReactProps & IReduxProps, IState> {
     const renderBooks = this.state.filteredBooks.map((eachBook, index) => (
       <Book key={index} book={eachBook} />
     ));
+
+    const displayedPageCount =
+      this.state.pageCount > this.state.maxPageCount
+        ? this.state.maxPageCount
+        : this.state.pageCount;
     return (
       <React.Fragment>
         <div className={styles.header}>
