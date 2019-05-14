@@ -24,25 +24,29 @@ class Book extends React.Component<IProps, IState> {
       ? this.props.book.volumeInfo.imageLinks.thumbnail
       : placeholder;
     return (
-      <div className={styles.bookinfo}>
-        <section className={styles.bookTitle}>
-          <div className={styles.title}>{this.props.book.volumeInfo.title}</div>
-          <div className={styles.picContainer}>
-            <img className={styles.picture} src={thumbnail} />
-          </div>
-        </section>
+      <React.Fragment>
+        <div className={styles.bookinfo}>
+          <section className={styles.bookTitle}>
+            <div className={styles.title}>
+              {this.props.book.volumeInfo.title}
+            </div>
+            <div className={styles.picContainer}>
+              <img className={styles.picture} src={thumbnail} />
+            </div>
+          </section>
 
-        <section className={styles.description}>
-          {this.props.book.volumeInfo.description}
-        </section>
-        <section className={styles.properties}>
-          Genre: {genreType}
-          <br />
-          Length: {bookLength}
-          <br />
-          Date Published: {datePublished}
-        </section>
-      </div>
+          <section className={styles.description}>
+            {this.props.book.volumeInfo.description}
+          </section>
+          <section className={styles.properties}>
+            Genre: {genreType}
+            <br />
+            Length: {bookLength}
+            <br />
+            Date Published: {datePublished}
+          </section>
+        </div>
+      </React.Fragment>
     );
   }
 }
