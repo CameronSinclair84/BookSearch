@@ -229,7 +229,8 @@ class BookContainer extends React.Component<IReactProps & IReduxProps, IState> {
                     { label: "Jane Austen", value: 2 },
                     { label: "Isaac Asimov", value: 3 },
                     { label: "Enid Blyton", value: 4 },
-                    { label: "Roald Dahl", value: 5 }
+                    { label: "Roald Dahl", value: 5 },
+                    { label: "George R.R. Martin", value: 6 }
                   ]}
                   onChange={this.handleAuthorDropdownChange}
                   placeholder="Select Author..."
