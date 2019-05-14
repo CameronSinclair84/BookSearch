@@ -16,9 +16,9 @@
   perspective: 1000px;
 }
 
-.movie {
+.book {
   width: 260px;
-  height: 400px;
+  height: 406.25px;
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
   transform-style: preserve-3d;
@@ -30,14 +30,14 @@
   transition: transform 350ms;
 }
 
-.movie:hover {
+.book:hover {
   -webkit-transform: rotateY(-78deg) translateZ(20px);
   -moz-transform: rotateY(-78deg) translateZ(20px);
   transform: rotateY(-78deg) translateZ(20px);
 }
 
-.movie .poster,
-.movie .info {
+.book .poster,
+.book .info {
   position: absolute;
   width: 260px;
   height: 406.25px;
@@ -47,7 +47,7 @@
   backface-visibility: hidden;
 }
 
-.movie .poster {
+.book .poster {
   -webkit-transform: translateZ(130px);
   -moz-transform: translateZ(130px);
   transform: translateZ(130px);
@@ -55,7 +55,7 @@
   background-repeat: no-repeat;
 }
 
-.movie .info {
+.book .info {
   -webkit-transform: rotateY(90deg) translateZ(130px);
   -moz-transform: rotateY(90deg) translateZ(130px);
   transform: rotateY(90deg) translateZ(130px);
@@ -92,8 +92,8 @@
   border-top: 10px solid #555;
 }
 
-.no-csstransforms3d .movie .poster,
-.no-csstransforms3d .movie .info {
+.no-csstransforms3d .book .poster,
+.no-csstransforms3d .book .info {
   position: relative;
 }
 
