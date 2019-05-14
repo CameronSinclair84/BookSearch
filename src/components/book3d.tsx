@@ -23,16 +23,20 @@ class Book3D extends React.Component<IProps, IState> {
     const thumbnail = this.props.book.volumeInfo.imageLinks
       ? this.props.book.volumeInfo.imageLinks.thumbnail
       : placeholder;
+    const title =
+      this.props.book.volumeInfo.title.length > 100
+        ? this.props.book.volumeInfo.title.slice(0, 100) + "..."
+        : this.props.book.volumeInfo.title;
     return (
       <React.Fragment>
         <div className={styles.scene}>
-          <div className={styles.movie}>
+          <div className={styles.book}>
             <div className={styles.poster}>
               <img className={styles.picture} src={thumbnail} />
             </div>
             <div className={styles.info}>
               <header>
-                <h1>{this.props.book.volumeInfo.title}</h1>
+                <h1>{title}</h1>
                 Genre: {genreType}
                 <br />
                 Length: {bookLength}
@@ -46,25 +50,6 @@ class Book3D extends React.Component<IProps, IState> {
           </div>
         </div>
       </React.Fragment>
-      // <div className={styles.bookinfo}>
-      //   <section className={styles.bookTitle}>
-      //     <div className={styles.title}>{this.props.book.volumeInfo.title}</div>
-      //     <div className={styles.picContainer}>
-      //       <img className={styles.picture} src={thumbnail} />
-      //     </div>
-      //   </section>
-
-      //   <section className={styles.description}>
-      //     {this.props.book.volumeInfo.description}
-      //   </section>
-      //   <section className={styles.properties}>
-      //     Genre: {genreType}
-      //     <br />
-      //     Length: {bookLength}
-      //     <br />
-      //     Date Published: {datePublished}
-      //   </section>
-      // </div>
     );
   }
 }
