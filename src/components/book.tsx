@@ -32,10 +32,12 @@ class Book extends React.Component<IProps, IState> {
             </div>
             <div className={styles.info}>
               <header>
-                <h1>It's a Wonderful Life</h1>
-                <span className={styles.year}>1946</span>
-                <span className={styles.rating}>PG</span>
-                <span className={styles.duration}>130 minutes</span>
+                <h1>{this.props.book.volumeInfo.title}</h1>
+                Genre: {genreType}
+                <br />
+                Length: {bookLength}
+                <br />
+                Date Published: {datePublished}
               </header>
               <p className={styles.description}>
                 {this.props.book.volumeInfo.description}

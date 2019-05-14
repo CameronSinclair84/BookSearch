@@ -98,10 +98,10 @@ Movie information
 **************************************/
 
 .info header {
-  color: #fff;
+  color: rgb(0, 0, 0);
   padding: 7px 10px;
   font-weight: bold;
-  height: 195px;
+  height: 150px;
   background-size: contain;
   background-repeat: no-repeat;
   text-shadow: 0px 1px 1px rgba(0, 0, 0, 1);
@@ -213,7 +213,7 @@ Fallback
 }
 
 .picture {
-  //height: 120px;
+  height: 400px;
   width: 260px;
   border: 2px solid black;
 }
@@ -241,10 +241,10 @@ Fallback
 
 .description {
   border-top: solid 1px black;
-  //border-bottom: solid 1px black;
+  // border-bottom: solid 1px black;
   margin: 0px 0px 20px 0px;
   padding: 0px 10px;
-  height: 200px;
+  height: 240px;
   overflow: auto;
 }
 
