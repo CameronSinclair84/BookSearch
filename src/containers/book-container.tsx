@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { IStore } from "../reducers";
 import { fetchBooks, IBook } from "../reducers/bookReducer";
 import styles from "./book-container.module.scss";
+import Book3D from "../components/book3d";
 import Book from "../components/book";
 import Select from "react-select";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -24,6 +25,7 @@ export interface IState {
   selectedGenre: string;
   pageCount: number;
   maxPageCount: number;
+  displayOption: string;
 }
 
 interface IGenre {
@@ -35,12 +37,13 @@ class BookContainer extends React.Component<IReactProps & IReduxProps, IState> {
   public state = {
     pageCount: 0,
     maxPageCount: 0,
-    authorName: "",
+    authorName: "George R.R Martin",
     authorInputName: "",
     selectedGenre: "ALL",
     keyword: "",
     filteredBooks: this.props.books,
-    genres: []
+    genres: [],
+    displayOption: "option2"
   };
 
   public componentDidMount = () => {
@@ -80,9 +83,9 @@ class BookContainer extends React.Component<IReactProps & IReduxProps, IState> {
 
   public updateMaxPageCount = () => {
     this.setState({
-      maxPageCount: this.findMaxPageCount()
+      maxPageCount: this.findMaxPageCount(),
+      pageCount: this.findMaxPageCount()
     });
-    console.log(this.state.maxPageCount);
   };
 
   public handleAuthorDropdownChange = (evt: any) => {
@@ -205,10 +208,21 @@ class BookContainer extends React.Component<IReactProps & IReduxProps, IState> {
     return finalGenres;
   };
 
+  public handleRadioChange = (event: any) => {
+    this.setState({
+      displayOption: event.target.value
+    });
+  };
+
   public render() {
-    const renderBooks = this.state.filteredBooks.map((eachBook, index) => (
-      <Book key={index} book={eachBook} />
-    ));
+    const renderBooks =
+      this.state.displayOption === "option1"
+        ? this.state.filteredBooks.map((eachBook, index) => (
+            <Book key={index} book={eachBook} />
+          ))
+        : this.state.filteredBooks.map((eachBook, index) => (
+            <Book3D key={index} book={eachBook} />
+          ));
 
     const displayedPageCount =
       this.state.pageCount > this.state.maxPageCount
@@ -273,6 +287,31 @@ class BookContainer extends React.Component<IReactProps & IReduxProps, IState> {
                   className={styles.slider}
                 />
               </div>
+              <section className={styles.radioContainer}>
+                <p>Select display type:</p>
+                <section className={styles.radios}>
+                  <label>
+                    <input
+                      type="radio"
+                      name="simple"
+                      value="option1"
+                      checked={this.state.displayOption === "option1"}
+                      onChange={this.handleRadioChange}
+                    />
+                    <span>Simple</span>
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      name="3d"
+                      value="option2"
+                      checked={this.state.displayOption === "option2"}
+                      onChange={this.handleRadioChange}
+                    />
+                    <span>3D / Animated</span>
+                  </label>
+                </section>
+              </section>
             </section>
           </div>
         </div>

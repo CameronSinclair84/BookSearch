@@ -25,46 +25,28 @@ class Book extends React.Component<IProps, IState> {
       : placeholder;
     return (
       <React.Fragment>
-        <div className={styles.scene}>
-          <div className={styles.movie}>
-            <div className={styles.poster}>
+        <div className={styles.bookinfo}>
+          <section className={styles.bookTitle}>
+            <div className={styles.title}>
+              {this.props.book.volumeInfo.title}
+            </div>
+            <div className={styles.picContainer}>
               <img className={styles.picture} src={thumbnail} />
             </div>
-            <div className={styles.info}>
-              <header>
-                <h1>{this.props.book.volumeInfo.title}</h1>
-                Genre: {genreType}
-                <br />
-                Length: {bookLength}
-                <br />
-                Date Published: {datePublished}
-              </header>
-              <p className={styles.description}>
-                {this.props.book.volumeInfo.description}
-              </p>
-            </div>
-          </div>
+          </section>
+
+          <section className={styles.description}>
+            {this.props.book.volumeInfo.description}
+          </section>
+          <section className={styles.properties}>
+            Genre: {genreType}
+            <br />
+            Length: {bookLength}
+            <br />
+            Date Published: {datePublished}
+          </section>
         </div>
       </React.Fragment>
-      // <div className={styles.bookinfo}>
-      //   <section className={styles.bookTitle}>
-      //     <div className={styles.title}>{this.props.book.volumeInfo.title}</div>
-      //     <div className={styles.picContainer}>
-      //       <img className={styles.picture} src={thumbnail} />
-      //     </div>
-      //   </section>
-
-      //   <section className={styles.description}>
-      //     {this.props.book.volumeInfo.description}
-      //   </section>
-      //   <section className={styles.properties}>
-      //     Genre: {genreType}
-      //     <br />
-      //     Length: {bookLength}
-      //     <br />
-      //     Date Published: {datePublished}
-      //   </section>
-      // </div>
     );
   }
 }
