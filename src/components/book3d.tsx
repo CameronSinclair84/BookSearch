@@ -24,15 +24,15 @@ class Book3D extends React.Component<IProps, IState> {
       ? this.props.book.volumeInfo.imageLinks.thumbnail
       : placeholder;
     const title =
-      this.props.book.volumeInfo.title.length > 100
-        ? this.props.book.volumeInfo.title.slice(0, 100) + "..."
+      this.props.book.volumeInfo.title.length > 80
+        ? this.props.book.volumeInfo.title.slice(0, 80) + "..."
         : this.props.book.volumeInfo.title;
     return (
       <React.Fragment>
         <div className={styles.scene}>
           <div className={styles.book}>
             <div className={styles.poster}>
-              <img className={styles.picture} src={thumbnail} />
+              <img className={styles.picture} src={thumbnail} alt="Book cover" />
             </div>
             <div className={styles.info}>
               <header>
@@ -43,9 +43,7 @@ class Book3D extends React.Component<IProps, IState> {
                 <br />
                 Date Published: {datePublished}
               </header>
-              <p className={styles.description}>
-                {this.props.book.volumeInfo.description}
-              </p>
+              <p className={styles.description}>{this.props.book.volumeInfo.description}</p>
             </div>
           </div>
         </div>

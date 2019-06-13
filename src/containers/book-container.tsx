@@ -4,10 +4,8 @@ import { IStore } from "../reducers";
 import { fetchBooks, IBook } from "../reducers/bookReducer";
 import styles from "./book-container.module.scss";
 import Book3D from "../components/book3d";
-import Book from "../components/book";
 import Select from "react-select";
 import "bootstrap/dist/css/bootstrap.min.css";
-import logo from "../118-512.png";
 
 export interface IReactProps {}
 
@@ -25,7 +23,6 @@ export interface IState {
   selectedGenre: string;
   pageCount: number;
   maxPageCount: number;
-  displayOption: string;
 }
 
 interface IGenre {
@@ -42,8 +39,7 @@ class BookContainer extends React.Component<IReactProps & IReduxProps, IState> {
     selectedGenre: "ALL",
     keyword: "",
     filteredBooks: this.props.books,
-    genres: [],
-    displayOption: "option2"
+    genres: []
   };
 
   public componentDidMount = () => {
@@ -68,24 +64,84 @@ class BookContainer extends React.Component<IReactProps & IReduxProps, IState> {
     }
   }
 
+  public render() {
+    const renderBooks = this.state.filteredBooks.map((eachBook, index) => (
+      <Book3D key={index} book={eachBook} />
+    ));
+
+    return (
+      <React.Fragment>
+        <div className={styles.header}>
+          <div className={styles.logo} />
+          <div className={styles.optionsContainer}>
+            <div className={styles.authorDropdown}>
+              <Select
+                options={[
+                  { label: "Dan Brown", value: 1 },
+                  { label: "Jane Austen", value: 2 },
+                  { label: "Isaac Asimov", value: 3 },
+                  { label: "Enid Blyton", value: 4 },
+                  { label: "Roald Dahl", value: 5 },
+                  { label: "George R.R Martin", value: 6 },
+                  { label: "J. R. R. Tolkien", value: 7 }
+                ]}
+                onChange={this.handleAuthorDropdownChange}
+                placeholder="Select Author..."
+              />
+            </div>
+            <div className={styles.authorInput}>
+              Specify author:
+              <input
+                type="text"
+                onChange={this.handleAuthorChange}
+                value={this.state.authorInputName}
+              />
+            </div>
+            <div className={styles.selectGenre}>
+              <Select
+                options={this.state.genres}
+                autosize={true}
+                placeholder="Select Genre..."
+                onChange={this.handleGenreChange}
+              />
+            </div>
+            <div className={styles.keywordInput}>
+              Keyword Search:
+              <input type="text" onChange={this.handleKeywordChange} />
+            </div>
+            <div className={styles.sliderContainer}>
+              <div className={styles.sliderInfo}>
+                Max page count:
+                {" " + this.state.pageCount}
+              </div>
+              <div className={styles.sliderActual}>
+                <input
+                  type="range"
+                  min="0"
+                  max={this.state.maxPageCount}
+                  value={this.state.pageCount}
+                  onChange={this.handleSliderChange}
+                  className={styles.slider}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className={styles.wrapper}>
+          <div className={styles.bookcontainer}>{renderBooks}</div>
+        </div>
+      </React.Fragment>
+    );
+  }
+
   public findMaxPageCount = (): number => {
     let findMax: number = 0;
     this.state.filteredBooks.map(eachbook => {
-      if (
-        eachbook.volumeInfo.pageCount &&
-        eachbook.volumeInfo.pageCount > findMax
-      ) {
+      if (eachbook.volumeInfo.pageCount && eachbook.volumeInfo.pageCount > findMax) {
         findMax = eachbook.volumeInfo.pageCount;
       }
     });
     return findMax;
-  };
-
-  public updateMaxPageCount = () => {
-    this.setState({
-      maxPageCount: this.findMaxPageCount(),
-      pageCount: this.findMaxPageCount()
-    });
   };
 
   public handleAuthorDropdownChange = (evt: any) => {
@@ -114,34 +170,36 @@ class BookContainer extends React.Component<IReactProps & IReduxProps, IState> {
   public handleFilter = () => {
     this.setState({
       filteredBooks: this.props.books.filter(eachbook => {
-        const {
-          description,
-          title,
-          pageCount,
-          categories
-        } = eachbook.volumeInfo;
+        const { description, title, pageCount, categories } = eachbook.volumeInfo;
         const stringToSearch = description
           ? title.toLowerCase() + description.toLowerCase()
           : title.toLowerCase();
 
         if (this.state.selectedGenre === "ALL") {
           if (
-            pageCount &&
-            pageCount <= this.state.pageCount &&
-            (stringToSearch.includes(this.state.keyword) ||
-              this.state.keyword === "")
+            !pageCount &&
+            (stringToSearch.includes(this.state.keyword) || this.state.keyword === "")
           ) {
             return true;
           }
-        } else if (
-          categories !== undefined &&
-          categories.includes(this.state.selectedGenre)
-        ) {
           if (
             pageCount &&
             pageCount <= this.state.pageCount &&
-            (stringToSearch.includes(this.state.keyword) ||
-              this.state.keyword === "")
+            (stringToSearch.includes(this.state.keyword) || this.state.keyword === "")
+          ) {
+            return true;
+          }
+        } else if (categories !== undefined && categories.includes(this.state.selectedGenre)) {
+          if (
+            !pageCount &&
+            (stringToSearch.includes(this.state.keyword) || this.state.keyword === "")
+          ) {
+            return true;
+          }
+          if (
+            pageCount &&
+            pageCount <= this.state.pageCount &&
+            (stringToSearch.includes(this.state.keyword) || this.state.keyword === "")
           ) {
             return true;
           }
@@ -194,133 +252,17 @@ class BookContainer extends React.Component<IReactProps & IReduxProps, IState> {
       }
     });
 
-    const removeDuplicates = (arg: string[]) =>
-      arg.filter((element1, element2) => arg.indexOf(element1) === element2);
-
-    const removedDuplicateGenres = removeDuplicates(getAllGenres);
+    const removedDuplicateGenres = new Set(getAllGenres);
+    const genreIterator = removedDuplicateGenres.values();
 
     finalGenres.push({ label: "ALL", value: 1 });
 
-    for (let i = 0; i < removedDuplicateGenres.length; i++) {
-      finalGenres.push({ label: removedDuplicateGenres[i], value: i + 2 });
+    for (let i = 0; i < removedDuplicateGenres.size; i++) {
+      finalGenres.push({ label: genreIterator.next().value, value: i + 2 });
     }
 
     return finalGenres;
   };
-
-  public handleRadioChange = (event: any) => {
-    this.setState({
-      displayOption: event.target.value
-    });
-  };
-
-  public render() {
-    const renderBooks =
-      this.state.displayOption === "option1"
-        ? this.state.filteredBooks.map((eachBook, index) => (
-            <Book key={index} book={eachBook} />
-          ))
-        : this.state.filteredBooks.map((eachBook, index) => (
-            <Book3D key={index} book={eachBook} />
-          ));
-
-    const displayedPageCount =
-      this.state.pageCount > this.state.maxPageCount
-        ? this.state.maxPageCount
-        : this.state.pageCount;
-    return (
-      <React.Fragment>
-        <div className={styles.header}>
-          <div className={styles.logo}>
-            <img src={logo} height="80px" />
-          </div>
-          <div className={styles.optionsContainer}>
-            <section className={styles.filtersContainer}>
-              <div className={styles.authorcontainer}>
-                <Select
-                  options={[
-                    { label: "Dan Brown", value: 1 },
-                    { label: "Jane Austen", value: 2 },
-                    { label: "Isaac Asimov", value: 3 },
-                    { label: "Enid Blyton", value: 4 },
-                    { label: "Roald Dahl", value: 5 },
-                    { label: "George R.R Martin", value: 6 }
-                  ]}
-                  onChange={this.handleAuthorDropdownChange}
-                  placeholder="Select Author..."
-                />
-              </div>
-              <div className={styles.select}>
-                <Select
-                  options={this.state.genres}
-                  autosize={true}
-                  placeholder="Select Genre..."
-                  onChange={this.handleGenreChange}
-                />
-              </div>
-              <div className={styles.searchInput}>
-                Specify author:
-                <input
-                  type="text"
-                  onChange={this.handleAuthorChange}
-                  value={this.state.authorInputName}
-                />
-              </div>
-              <div className={styles.searchInput}>
-                Keyword Search:
-                <input type="text" onChange={this.handleKeywordChange} />
-              </div>
-            </section>
-            <section className={styles.sliderContainer}>
-              <div className={styles.sliderInfo}>
-                Max page count:
-                {" " + this.state.pageCount}
-                {/* FIX STYLING */}
-              </div>
-              <div className={styles.sliderActual}>
-                <input
-                  type="range"
-                  min="0"
-                  max={this.state.maxPageCount}
-                  value={this.state.pageCount}
-                  onChange={this.handleSliderChange}
-                  className={styles.slider}
-                />
-              </div>
-              <section className={styles.radioContainer}>
-                <p>Select display type:</p>
-                <section className={styles.radios}>
-                  <label>
-                    <input
-                      type="radio"
-                      name="simple"
-                      value="option1"
-                      checked={this.state.displayOption === "option1"}
-                      onChange={this.handleRadioChange}
-                    />
-                    <span>Simple</span>
-                  </label>
-                  <label>
-                    <input
-                      type="radio"
-                      name="3d"
-                      value="option2"
-                      checked={this.state.displayOption === "option2"}
-                      onChange={this.handleRadioChange}
-                    />
-                    <span>3D / Animated</span>
-                  </label>
-                </section>
-              </section>
-            </section>
-          </div>
-        </div>
-        <div className={styles.wrapper}>
-          <div className={styles.bookcontainer}>{renderBooks}</div>
-        </div>
-      </React.Fragment>
-    );
-  }
 }
 
 const mapStateToProps = (state: IStore, props: IReactProps) => {

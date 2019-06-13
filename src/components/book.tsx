@@ -27,17 +27,13 @@ class Book extends React.Component<IProps, IState> {
       <React.Fragment>
         <div className={styles.bookinfo}>
           <section className={styles.bookTitle}>
-            <div className={styles.title}>
-              {this.props.book.volumeInfo.title}
-            </div>
+            <div className={styles.title}>{this.props.book.volumeInfo.title}</div>
             <div className={styles.picContainer}>
-              <img className={styles.picture} src={thumbnail} />
+              <img className={styles.picture} src={thumbnail} alt="Book cover" />
             </div>
           </section>
 
-          <section className={styles.description}>
-            {this.props.book.volumeInfo.description}
-          </section>
+          <section className={styles.description}>{this.props.book.volumeInfo.description}</section>
           <section className={styles.properties}>
             Genre: {genreType}
             <br />

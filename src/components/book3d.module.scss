@@ -1,3 +1,5 @@
+@import "../assets/variables.scss";
+
 *,
 *:after,
 *:before {
@@ -41,7 +43,7 @@
   position: absolute;
   width: 260px;
   height: 406.25px;
-  background-color: #fff;
+  background-color: $primary-color-3;
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   backface-visibility: hidden;
@@ -66,16 +68,14 @@
 .info header {
   color: rgb(0, 0, 0);
   padding: 7px 10px;
-  font-weight: bold;
+  font-weight: 900;
   height: 150px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  text-shadow: 0px 1px 1px rgba(0, 0, 0, 1);
 }
 
 .info header h1 {
   margin: 0 0 2px;
   font-size: 1.4em;
+  font-weight: 700;
 }
 
 .info header .rating {
@@ -87,7 +87,7 @@
   padding: 1.2em 1.4em;
   margin: 2px 0 0;
   font-weight: 700;
-  color: #666;
+  color: black;
   line-height: 1.4em;
   border-top: 10px solid #555;
 }
@@ -105,7 +105,6 @@
 
 .description {
   border-top: solid 1px black;
-  // border-bottom: solid 1px black;
   margin: 0px 0px 20px 0px;
   padding: 0px 10px;
   height: 240px;
@@ -131,7 +130,7 @@
   background: #555;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 768px) {
   .scene {
     width: 130px;
     height: 203.125px;
@@ -185,17 +184,13 @@
 
   .info header {
     color: rgb(0, 0, 0);
-    padding: 3.5px 5px;
+    padding: 5px 5px;
     font-weight: bold;
     height: 75px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    text-shadow: 0px 0.5px 0.5px rgba(0, 0, 0, 1);
   }
 
   .description {
     border-top: solid 1px black;
-    // border-bottom: solid 1px black;
     margin: 0px 0px 10px 0px;
     padding: 0px 5px;
     height: 120px;

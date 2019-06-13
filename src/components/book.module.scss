@@ -75,3 +75,64 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+@media screen and (max-width: 768px) {
+  .bookinfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border: solid 1px black;
+    height: 220px;
+    width: 150px;
+    background-color: rgb(114, 164, 197);
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 2.5px 5px #3071a9;
+  }
+  .picContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+  }
+
+  .picture {
+    height: 60px;
+    max-width: 60px;
+    border: 1px solid black;
+  }
+
+  .bookTitle {
+    //border: solid 1px red;
+    display: flex;
+    justify-content: space-between;
+    height: 75px;
+    margin: 5px;
+    font-weight: 800;
+  }
+
+  .title {
+    display: flex;
+    margin: 5px;
+    height: 50%;
+    width: 90%;
+    //background-color: green;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    overflow: auto;
+  }
+
+  .description {
+    border-top: solid 1px black;
+    border-bottom: solid 1px black;
+    margin: 0px 0px 10px 0px;
+    padding: 0px 5px;
+    height: 75px;
+    overflow: auto;
+  }
+
+  .properties {
+    font-weight: 500;
+  }
+}
